@@ -41,8 +41,8 @@ def generate_launch_description():
         name='rectify',
         namespace='',
         parameters=[{
-            'output_width': 1920,
-            'output_height': 1080,
+            'output_width': 1280,
+            'output_height': 720,
         }]
     )
 
@@ -73,4 +73,4 @@ def generate_launch_description():
         output='screen'
     )
 
-    return launch.LaunchDescription([depthai, apriltag_container])
+    return launch.LaunchDescription([apriltag_container, depthai])
