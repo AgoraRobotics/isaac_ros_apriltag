@@ -75,7 +75,7 @@ components:
     allocator: pool
     max_tags: 64
     tile_size: 4
-    tag_dimensions: 0.22
+    tag_dimensions: 0.20
 - type: nvidia::gxf::MessageAvailableSchedulingTerm
   parameters:
     receiver: camera_image_info_in
