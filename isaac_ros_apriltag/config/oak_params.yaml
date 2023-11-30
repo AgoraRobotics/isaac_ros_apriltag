@@ -25,7 +25,7 @@
       i_disable_resize: true
       i_update_ros_base_time_on_ros_msg: true     # Handles cases in which the ROS time shifts forward or backward Should be called at regular intervals or on-change of ROS time, depending on monitoring.
     stereo:
-      i_subpixel: true
+      i_subpixel: true                            # Subpixel mode improves the precision and is especially useful for long range measurements. It also helps for better estimating surface normals. ref: SubpixelDisparity in https://docs.luxonis.com/projects/api/en/latest/components/nodes/stereo_depth/
       i_publish_topic: true
       i_width: 640    #1280
       i_height: 320   #720
