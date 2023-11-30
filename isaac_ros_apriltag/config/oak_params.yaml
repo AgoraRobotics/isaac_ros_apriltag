@@ -1,21 +1,44 @@
-oak:
+/oak:
   ros__parameters:
     camera:
+      i_mx_id: 18443010B1826C0F00
       i_enable_imu: false
-      i_enable_ir: false
+      i_enable_ir: true
+      i_nn_type: spatial
       i_pipeline_type: RGBD
-      #i_publish_tf_from_calibration: true
+      i_usb_speed: SUPER
+      i_publish_tf_from_calibration': True
+      i_tf_base_frame: oak
+      i_tf_tf_prefix: oak
+      i_tf_cam_pitch: '0.0'
+      i_tf_cam_pos_x: '0.0'
+      i_tf_cam_pos_y: '0.0'
+      i_tf_cam_pos_z: '0.0'
+      i_tf_cam_roll: '0.0'
+      i_tf_cam_yaw: '0.0'
+      i_tf_camera_model: 'OAK-D'
+      i_tf_camera_name: oak
+      i_tf_imu_from_descr: 'false'
+      i_tf_parent_frame: oak_camera
+    nn:
+      i_enable_passthrough: true
+      i_disable_resize: true
+      i_update_ros_base_time_on_ros_msg: true     # Handles cases in which the ROS time shifts forward or backward Should be called at regular intervals or on-change of ROS time, depending on monitoring.
     stereo:
-      i_publish_topic: false
-      #i_reverse_stereo_socket_order: true
-      #i_publish_synced_rect_pair: true
-      i_update_ros_base_time_on_ros_msg: true
-  rgb:
-    i_height: 1080
-    i_width: 1920
-    #left:
-    #  i_resolution: '400'
-    #  i_fps: 90.0
-    #right:
-    #  i_resolution: '400'
-    #  i_fps: 90.0
+      i_subpixel: true
+      i_publish_topic: true
+      i_width: 640    #1280
+      i_height: 320   #720
+      i_update_ros_base_time_on_ros_msg: true     # Handles cases in which the ROS time shifts forward or backward Should be called at regular intervals or on-change of ROS time, depending on monitoring.
+    rgb:
+      i_width: 1280
+      i_height: 720
+      i_publish_topic: true
+      i_enable_preview: true
+      i_keep_preview_aspect_ratio: false
+      i_set_isp_scale: true
+      i_update_ros_base_time_on_ros_msg: true     # Handles cases in which the ROS time shifts forward or backward Should be called at regular intervals or on-change of ROS time, depending on monitoring.
+
+/spatial_bb_node:
+  ros__parameters:
+    desqueeze: true
