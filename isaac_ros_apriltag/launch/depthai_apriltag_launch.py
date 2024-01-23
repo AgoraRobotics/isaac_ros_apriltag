@@ -17,9 +17,6 @@ def launch_setup(context, *args, **kwargs):
     name = LaunchConfiguration('name').perform(context)
     rgb_topic_name = name+'/rgb/image_raw'
     log_level = 'info'
-    
-    remappings=[('/image', '/oak/rgb/image_raw'), 
-                ('/camera_info', '/oak/rgb/camera_info')]
 
     params_file = LaunchConfiguration("params_file")
     camera_model = LaunchConfiguration('camera_model',  default='OAK-D')
@@ -96,10 +93,28 @@ def launch_setup(context, *args, **kwargs):
                         name=name,
                         remappings=[('/oak/rgb/image_raw', '/image_raw'),
                                     ('/oak/rgb/camera_info', '/camera_info')],
+                        extra_arguments=[{"use_intra_process_comms": True}],
                         parameters=[params_file, tf_params],
                     )
             ],
         ),
+        
+        #### When using FastDDS this is necessary!!! ####
+        
+        # LoadComposableNodes(
+        #     target_container="oak_container",
+        #     composable_node_descriptions=[ComposableNode(
+        #         package='isaac_ros_image_proc',
+        #         plugin='nvidia::isaac_ros::image_proc::ImageFormatConverterNode',
+        #         name='image_format_node',
+        #         remappings=[
+        #                 ('image', 'image_raw')],
+        #         parameters=[{
+        #                 'encoding_desired': 'rgb8',
+        #         }]
+        #         ),
+        #     ],
+        # ),
         
         LoadComposableNodes(
                 target_container="oak_container",
@@ -143,39 +158,23 @@ def launch_setup(context, *args, **kwargs):
             ],
         ),
         
-        # LoadComposableNodes(
-        #     target_container="oak_container",
-        #     composable_node_descriptions=[
-        #         ComposableNode(
-        #             package='isaac_ros_depth_image_proc',
-        #             plugin='nvidia::isaac_ros::depth_image_proc::PointCloudXyzrgbNode',
-        #             name='point_cloud_xyzrgb_node',
-        #             remappings=[('depth_registered/image_rect', name+'/stereo/image_raw'),
-        #                         ('rgb/image_rect_color', '/image_raw'),
-        #                         ('rgb/camera_info', '/camera_info'),
-        #                         ('points', name+'/points')]
-        #         ),
-        #     ],
-        # ),
-
-        # LoadComposableNodes(
-        #     target_container="oak_container",
-        #     composable_node_descriptions=[
-        #         ComposableNode(
-        #             package="depthai_filters",
-        #             plugin="depthai_filters::SpatialBB",
-        #             name="spatial_bb_node",
-        #             remappings=[
-        #                     ('stereo/camera_info', name+'/stereo/camera_info'),
-        #                     ('nn/spatial_detections',
-        #                      name+'/nn/spatial_detections'),
-        #                     ('rgb/preview/image_raw',
-        #                      name+'/rgb/preview/image_raw'),
-        #             ],
-        #             parameters=[params_file],
-        #         ),
-        #     ],
-        # ),
+        LoadComposableNodes(
+            target_container="oak_container",
+            composable_node_descriptions=[
+                ComposableNode(
+                    package="depthai_filters",
+                    plugin="depthai_filters::SpatialBB",
+                    name="spatial_bb_node",
+                    remappings=[
+                            ('stereo/camera_info', name+'/stereo/camera_info'),
+                            ('nn/spatial_detections', name+'/nn/spatial_detections'),
+                            ('rgb/preview/image_raw', name+'/rgb/preview/image_raw'),
+                    ],
+                    extra_arguments=[{"use_intra_process_comms": True}],
+                    parameters=[params_file],
+                ),
+            ],
+        ),
     
     ]
 
