@@ -158,6 +158,24 @@ def launch_setup(context, *args, **kwargs):
             ],
         ),
         
+        LoadComposableNodes(
+                target_container="oak_container",
+                composable_node_descriptions=[ComposableNode(
+                    package='isaac_ros_image_proc',
+                    plugin='nvidia::isaac_ros::image_proc::ResizeNode',
+                    name='resize_left',
+                    remappings=[
+                        ('/image', '/oak/left/image_raw'),
+                        ('/resize/image', '/resize/image_left'),
+                        ('/resize/camera_info', '/resize/camera_info_left')],
+                    parameters=[{
+                        'output_width': 640,
+                        'output_height': 480,
+                    }],
+                ),
+            ],
+        ),
+        
         # LoadComposableNodes(
         #     target_container="oak_container",
         #     composable_node_descriptions=[
