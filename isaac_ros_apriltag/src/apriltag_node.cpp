@@ -188,7 +188,7 @@ AprilTagNode::AprilTagNode(const rclcpp::NodeOptions & options)
     GENERATOR_RULE_FILENAMES,
     EXTENSIONS,
     PACKAGE_NAME),
-  size_(declare_parameter<double>("size", 0.20)),
+  size_(declare_parameter<double>("size", 0.144)),
   max_tags_(declare_parameter<int>("max_tags", 64)),
   tile_size_(declare_parameter<uint16_t>("tile_size", 4))
 {

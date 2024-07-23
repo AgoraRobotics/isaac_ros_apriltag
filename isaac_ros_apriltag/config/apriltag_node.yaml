@@ -73,9 +73,9 @@ components:
     camera_image: camera_image_info_in
     april_tags: april_tags_out
     allocator: pool
-    max_tags: 64
+    max_tags: 1
     tile_size: 4
-    tag_dimensions: 0.20
+    tag_dimensions: 0.144
 - type: nvidia::gxf::MessageAvailableSchedulingTerm
   parameters:
     receiver: camera_image_info_in
@@ -101,7 +101,7 @@ components:
 - name: camera_image_in
   type: nvidia::gxf::DoubleBufferReceiver
   parameters:
-    capacity: 12
+    capacity: 1
     policy: 0
 - type: nvidia::gxf::MessageAvailableSchedulingTerm
   parameters:
@@ -110,7 +110,7 @@ components:
 - name: camera_image_out
   type: nvidia::gxf::DoubleBufferTransmitter
   parameters:
-    capacity: 12
+    capacity: 1
     policy: 0
 - type: nvidia::gxf::DownstreamReceptiveSchedulingTerm
   parameters:
