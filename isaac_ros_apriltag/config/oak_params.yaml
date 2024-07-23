@@ -1,7 +1,7 @@
 /oak:
   ros__parameters:
     camera:
-      i_mx_id: 18443010B1826C0F00
+      #i_mx_id: 18443010B1826C0F00
       i_enable_imu: false
       i_enable_ir: true
       i_nn_type: spatial
@@ -38,7 +38,13 @@
       i_keep_preview_aspect_ratio: false
       i_set_isp_scale: true
       i_update_ros_base_time_on_ros_msg: true     # Handles cases in which the ROS time shifts forward or backward Should be called at regular intervals or on-change of ROS time, depending on monitoring.
-
+    left:
+      i_width: 1280
+      i_height: 720
+      i_publish_topic: true
+      i_set_isp_scale: true
+      i_update_ros_base_time_on_ros_msg: true
+      
 /spatial_bb_node:
   ros__parameters:
     desqueeze: true
